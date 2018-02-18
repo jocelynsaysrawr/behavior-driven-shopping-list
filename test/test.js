@@ -94,22 +94,17 @@ describe("ShoppingListItem", () => {
 
 describe("ShoppingList", () => {
   it("should be a function", () => {
-    const myShoppingList = new ShoppingList();
-    expect(myShoppingList).to.be.a("function");
-  });
-  it("should be a class", () => {
-    const myShoppingList = new ShoppingList();
-    myShoppingList.should.be.class;
+    expect(ShoppingList).to.be.a("function");
   });
 
   describe("#items", () => {
     it("ShoppingList should have a property named 'items'", () => {
       const myShoppingList = new ShoppingList();
-      expect(myShoppingList.items).to.be.a("Array");
+      expect(myShoppingList.items).to.be.an("Array");
     });
     it("should be an array", () => {
       const myShoppingList = new ShoppingList();
-      myShoppingList.items.should.equal([]);
+      myShoppingList.items.should.deep.equal([]);
     });
   });
 
@@ -143,9 +138,9 @@ describe("ShoppingList", () => {
       const chips = new ShoppingListItem("chips", "Store in a cool dry place.");
       myShoppingList.addItem(avocado);
       myShoppingList.addItem(chips);
-      myShoppingList.removeItem(avocado);
+      myShoppingList.removeItem("Avocado");
       myShoppingList.items.should.contain(chips);
-      expect(myShoppingList.length).to.equal(1);
+      expect(myShoppingList.items.length).to.equal(1);
     });
     it("Invoking the removeItem method with no parameters should remove the last item in the items list, if there are any itmes, else it does nothing", () => {
       const myShoppingList = new ShoppingList();
@@ -157,17 +152,17 @@ describe("ShoppingList", () => {
       myShoppingList.addItem(avocado);
       myShoppingList.addItem(chips);
       myShoppingList.removeItem();
-      expect(myShoppingList.length).to.equal(1);
+      expect(myShoppingList.items.length).to.equal(1);
 
       myShoppingList.removeItem();
       myShoppingList.removeItem();
-      expect(myShoppingList.items).to.equal([]);
-      expect([]).to.be.empty;
+      expect(myShoppingList.items).to.deep.equal([]);
     });
     it("Invoking the removeItem method by passing in anything else that is not a ShoppingListItem object (that exists in the items array) should immediately throw an error", () => {
       const myShoppingList = new ShoppingList();
-      myShoppingList.removeItem(avocado);
-      expect(myShoppingList.removeItem(avocado)).to.throw();
+      expect(function() {
+        myShoppingList.removeItem("Avocado");
+      }).to.throw(TypeError, "Item does not exist!");
     });
   });
 
@@ -178,18 +173,34 @@ describe("ShoppingList", () => {
     });
     it("Calling the instance's render method will concatenate the result of calling render() on each item in this object's items array...", () => {
       const myShoppingList = new ShoppingList();
+      const avocado = new ShoppingListItem(
+        "Avocado",
+        "Must be eaten immediately."
+      );
+      const chips = new ShoppingListItem("chips", "Store in a cool dry place.");
       myShoppingList.addItem(avocado);
       myShoppingList.addItem(chips);
-      expect(myShoppingList.render()).to.include("<li>");
+      console.log("render: ", myShoppingList.render());
+      expect(myShoppingList.render()).to.deep.include("</li>");
     });
     it("the results should be wrapped in <ul> tags", () => {
       const myShoppingList = new ShoppingList();
+      const avocado = new ShoppingListItem(
+        "Avocado",
+        "Must be eaten immediately."
+      );
+      const chips = new ShoppingListItem("chips", "Store in a cool dry place.");
       myShoppingList.addItem(avocado);
       myShoppingList.addItem(chips);
-      expect(myShoppingList.render()).to.include("<ul>");
+      expect(myShoppingList.render()).to.deep.include("<ul>");
     });
     it("the results should return an html formatted string", () => {
       const myShoppingList = new ShoppingList();
+      const avocado = new ShoppingListItem(
+        "Avocado",
+        "Must be eaten immediately."
+      );
+      const chips = new ShoppingListItem("chips", "Store in a cool dry place.");
       myShoppingList.addItem(avocado);
       myShoppingList.addItem(chips);
       expect(myShoppingList.render()).to.be.a("string");
