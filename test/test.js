@@ -4,12 +4,7 @@ const assert = chai.assert;
 
 describe("ShoppingListItem", () => {
   it("should be a function", () => {
-    const myShoppingListItem = new ShoppingListItem();
-    expect(myShoppingListItem).to.be.a("function");
-  });
-  it("should be a class", () => {
-    const myShoppingListItem = new ShoppingListItem();
-    myShoppingListItem.should.be.class;
+    expect(ShoppingListItem).to.be.a("function");
   });
 
   describe("#name", () => {
@@ -38,7 +33,7 @@ describe("ShoppingListItem", () => {
         "Avocado",
         "Must be eaten immediately."
       );
-      expect(myShoppingListItem.is_done).to.be.undefined;
+      expect(myShoppingListItem.is_done).to.be.false;
     });
   });
 
@@ -55,7 +50,7 @@ describe("ShoppingListItem", () => {
         "Avocado",
         "Must be eaten immediately."
       );
-      expect(myShoppingListItem.check()).to.be.a("boolean");
+      myShoppingListItem.check();
       myShoppingListItem.is_done.should.equal(true);
     });
   });
@@ -69,7 +64,11 @@ describe("ShoppingListItem", () => {
       expect(myShoppingListItem.uncheck).to.be.a("function");
     });
     it("Calling the instance's uncheck method should set it's 'is_done' property to false", () => {
-      expect(myShoppingListItem.uncheck()).to.be.a("boolean");
+      const myShoppingListItem = new ShoppingListItem(
+        "Avocado",
+        "Must be eaten immediately."
+      );
+      myShoppingListItem.uncheck();
       myShoppingListItem.is_done.should.equal(false);
     });
   });
@@ -83,7 +82,12 @@ describe("ShoppingListItem", () => {
       expect(myShoppingListItem.render).to.be.a("function");
     });
     it("Calling the instance's render method will construct and return an html formatted string.", () => {
-      expect(myShoppiongListItem.render()).to.be.a("string");
+      const myShoppingListItem = new ShoppingListItem(
+        "Avocado",
+        "Must be eaten immediately."
+      );
+      const avocadoRender = myShoppingListItem.render();
+      expect(avocadoRender).to.be.a("string");
     });
   });
 });
