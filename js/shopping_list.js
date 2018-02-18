@@ -10,7 +10,6 @@ class ShoppingList {
   removeItem(item) {
     if (item) {
       const index = this.items.map(i => i.name).indexOf(item);
-      console.log("index: ", index);
       if (index === -1) {
         throw new TypeError("Item does not exist!");
       } else if (index === 0) {
@@ -30,7 +29,6 @@ class ShoppingList {
 
   render() {
     const itemsArr = this.items.map(i => i.render());
-    console.log(this.items.map(i => i.render()));
     return `<ul>${itemsArr}</ul>`;
   }
 }

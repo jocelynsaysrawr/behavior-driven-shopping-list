@@ -180,7 +180,6 @@ describe("ShoppingList", () => {
       const chips = new ShoppingListItem("chips", "Store in a cool dry place.");
       myShoppingList.addItem(avocado);
       myShoppingList.addItem(chips);
-      console.log("render: ", myShoppingList.render());
       expect(myShoppingList.render()).to.deep.include("</li>");
     });
     it("the results should be wrapped in <ul> tags", () => {
