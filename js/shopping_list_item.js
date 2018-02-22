@@ -14,8 +14,12 @@ class ShoppingListItem {
   }
 
   render() {
-    return `<li class="completed_${this.is_done}"><span>${
+    return `<li class="completed_${
+      this.is_done
+    }"><span><strong>Item: </strong>${
       this.name
-    }</span><span>${this.description}</span></li>`;
+    }</span><br><span> <strong>Description:</strong> <em>${
+      this.description
+    }</em></span></li>`;
   }
 }

@@ -28,7 +28,8 @@ class ShoppingList {
   }
 
   render() {
-    const itemsArr = this.items.map(i => i.render());
+    const itemsArr = this.items.map(i => i.render()).join("");
+
     return `<ul>${itemsArr}</ul>`;
   }
 }
